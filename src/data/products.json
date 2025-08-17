@@ -1,0 +1,128 @@
+[
+  {
+    "id": "1",
+    "name": "iPhone 15 Pro",
+    "imageUrl": "https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=400&h=400&fit=crop",
+    "description": "O iPhone mais avançado da Apple com chip A17 Pro, câmera de 48MP e design em titânio",
+    "price": 999.99,
+    "rating": 4.8,
+    "specifications": {
+      "screen": "6.1 inch Super Retina XDR OLED",
+      "storage": "128GB",
+      "ram": "8GB",
+      "processor": "A17 Pro chip",
+      "camera": "48MP Main + 12MP Ultra Wide + 12MP Telephoto",
+      "battery": "Up to 23 hours video playback",
+      "colors": ["Natural Titanium", "Blue Titanium", "White Titanium", "Black Titanium"]
+    },
+    "category": "smartphones",
+    "brand": "Apple",
+    "inStock": true,
+    "releaseDate": "2023-09-22"
+  },
+  {
+    "id": "2",
+    "name": "Samsung Galaxy S24 Ultra",
+    "imageUrl": "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?w=400&h=400&fit=crop",
+    "description": "Flagship Android com S Pen integrado, câmera de 200MP e processador Snapdragon 8 Gen 3",
+    "price": 1199.99,
+    "rating": 4.7,
+    "specifications": {
+      "screen": "6.8 inch Dynamic AMOLED 2X",
+      "storage": "256GB",
+      "ram": "12GB",
+      "processor": "Snapdragon 8 Gen 3",
+      "camera": "200MP Main + 12MP Ultra Wide + 50MP Telephoto + 10MP Telephoto",
+      "battery": "5000mAh, 45W charging",
+      "colors": ["Titanium Gray", "Titanium Black", "Titanium Violet", "Titanium Yellow"]
+    },
+    "category": "smartphones",
+    "brand": "Samsung",
+    "inStock": true,
+    "releaseDate": "2024-01-31"
+  },
+  {
+    "id": "3",
+    "name": "MacBook Pro 14\" M3 Pro",
+    "imageUrl": "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=400&h=400&fit=crop",
+    "description": "Notebook profissional com chip M3 Pro, display Liquid Retina XDR e até 22 horas de bateria",
+    "price": 1999.99,
+    "rating": 4.9,
+    "specifications": {
+      "screen": "14.2 inch Liquid Retina XDR",
+      "storage": "512GB SSD",
+      "ram": "18GB unified memory",
+      "processor": "Apple M3 Pro chip",
+      "ports": "3 Thunderbolt 4, HDMI, SDXC card slot, MagSafe 3",
+      "battery": "Up to 22 hours",
+      "colors": ["Space Gray", "Silver"]
+    },
+    "category": "laptops",
+    "brand": "Apple",
+    "inStock": true,
+    "releaseDate": "2023-10-30"
+  },
+  {
+    "id": "4",
+    "name": "Dell XPS 13 Plus",
+    "imageUrl": "https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?w=400&h=400&fit=crop",
+    "description": "Ultrabook premium com design minimalista, display OLED 4K e processador Intel de 13ª geração",
+    "price": 1499.99,
+    "rating": 4.6,
+    "specifications": {
+      "screen": "13.4 inch OLED 4K Touch",
+      "storage": "1TB SSD",
+      "ram": "16GB LPDDR5",
+      "processor": "Intel Core i7-1360P",
+      "ports": "2 Thunderbolt 4, 1 USB-C",
+      "battery": "55Whr, 65W charging",
+      "colors": ["Platinum Silver", "Graphite"]
+    },
+    "category": "laptops",
+    "brand": "Dell",
+    "inStock": true,
+    "releaseDate": "2023-06-15"
+  },
+  {
+    "id": "5",
+    "name": "Sony WH-1000XM5",
+    "imageUrl": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&h=400&fit=crop",
+    "description": "Fones de ouvido sem fio com cancelamento de ruído líder do mercado e qualidade de áudio excepcional",
+    "price": 399.99,
+    "rating": 4.8,
+    "specifications": {
+      "driver": "30mm dynamic",
+      "frequency": "4Hz-40,000Hz",
+      "noiseCancellation": "Multi-NC",
+      "battery": "Up to 30 hours (NC on), 40 hours (NC off)",
+      "connectivity": "Bluetooth 5.2, NFC",
+      "features": "Touch controls, Speak-to-Chat, Quick Attention",
+      "colors": ["Black", "Silver"]
+    },
+    "category": "audio",
+    "brand": "Sony",
+    "inStock": true,
+    "releaseDate": "2022-05-12"
+  },
+  {
+    "id": "6",
+    "name": "Nintendo Switch OLED",
+    "imageUrl": "https://images.unsplash.com/photo-1578303512597-81e6cc155b3e?w=400&h=400&fit=crop",
+    "description": "Console híbrido com display OLED de 7 polegadas, melhorando a experiência de jogos portáteis",
+    "price": 349.99,
+    "rating": 4.7,
+    "specifications": {
+      "screen": "7 inch OLED touchscreen",
+      "storage": "64GB internal",
+      "resolution": "1280x720 (handheld), 1920x1080 (docked)",
+      "battery": "4.5-9 hours",
+      "connectivity": "Wi-Fi, Bluetooth 4.1",
+      "ports": "USB-C, 3.5mm headphone jack",
+      "colors": ["White", "Neon Blue/Neon Red"]
+    },
+    "category": "gaming",
+    "brand": "Nintendo",
+    "inStock": true,
+    "releaseDate": "2021-10-08"
+  }
+]
