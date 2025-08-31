@@ -1,10 +1,10 @@
 /**
- * Global error handling middleware
- * Provides consistent error responses across the API
+ * Middleware global de tratamento de erros
+ * Fornece respostas de erro consistentes em toda a API
  */
 
 const errorHandler = (err, req, res, next) => {
-  // Log error for debugging
+  // Registrar erro para depuração
   console.error('Error occurred:', {
     message: err.message,
     stack: err.stack,
@@ -13,33 +13,33 @@ const errorHandler = (err, req, res, next) => {
     timestamp: new Date().toISOString()
   });
 
-  // Default error values
+  // Valores padrão de erro
   let statusCode = err.statusCode || 500;
-  let message = err.message || 'Internal Server Error';
+  let message = err.message || 'Erro interno do servidor';
   let errorCode = err.errorCode || 'INTERNAL_ERROR';
 
-  // Handle specific error types
+  // Lidar com tipos específicos de erro
   if (err.name === 'ValidationError') {
     statusCode = 400;
     errorCode = 'VALIDATION_ERROR';
-    message = 'Validation failed';
+    message = 'Falha na validação';
   } else if (err.name === 'CastError') {
     statusCode = 400;
     errorCode = 'INVALID_ID_FORMAT';
-    message = 'Invalid ID format';
+    message = 'Formato de ID inválido';
   } else if (err.code === 'ENOENT') {
     statusCode = 500;
     errorCode = 'FILE_NOT_FOUND';
-    message = 'Data file not found';
+    message = 'Arquivo de dados não encontrado';
   }
 
-  // Don't leak error details in production
+  // Não vazar detalhes de erro em produção
   if (process.env.NODE_ENV === 'production' && statusCode === 500) {
-    message = 'Internal Server Error';
+    message = 'Erro interno do servidor';
     errorCode = 'INTERNAL_ERROR';
   }
 
-  // Send error response
+  // Enviar resposta de erro
   res.status(statusCode).json({
     success: false,
     error: {

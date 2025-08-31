@@ -50,7 +50,7 @@ router.get('/compare', async (req, res, next) => {
     
     // Validar parâmetro ids
     if (!ids || ids.trim() === '') {
-      const error = new Error('At least one valid product ID is required');
+      const error = new Error('Pelo menos um ID de produto válido é obrigatório');
       error.statusCode = 400;
       error.errorCode = 'INVALID_IDS';
       throw error;
@@ -60,7 +60,7 @@ router.get('/compare', async (req, res, next) => {
     const productIds = ids.split(',').map(id => id.trim()).filter(id => id);
     
     if (productIds.length === 0) {
-      const error = new Error('At least one valid product ID is required');
+      const error = new Error('Pelo menos um ID de produto válido é obrigatório');
       error.statusCode = 400;
       error.errorCode = 'INVALID_IDS';
       throw error;
@@ -68,7 +68,7 @@ router.get('/compare', async (req, res, next) => {
 
     // Limitar comparação a máximo 10 produtos
     if (productIds.length > 10) {
-      const error = new Error('Maximum 10 products can be compared at once');
+      const error = new Error('Máximo de 10 produtos podem ser comparados de uma vez');
       error.statusCode = 400;
       error.errorCode = 'TOO_MANY_PRODUCTS';
       throw error;
@@ -127,7 +127,7 @@ router.get('/compare/detailed', async (req, res, next) => {
     const { ids } = req.query;
     
     if (!ids || ids.trim() === '') {
-      const error = new Error('At least one valid product ID is required');
+      const error = new Error('Pelo menos um ID de produto válido é obrigatório');
       error.statusCode = 400;
       error.errorCode = 'INVALID_IDS';
       throw error;
@@ -136,14 +136,14 @@ router.get('/compare/detailed', async (req, res, next) => {
     const productIds = ids.split(',').map(id => id.trim()).filter(id => id);
     
     if (productIds.length === 0) {
-      const error = new Error('At least one valid product ID is required');
+      const error = new Error('Pelo menos um ID de produto válido é obrigatório');
       error.statusCode = 400;
       error.errorCode = 'INVALID_IDS';
       throw error;
     }
 
     if (productIds.length > 10) {
-      const error = new Error('Maximum 10 products can be compared at once');
+      const error = new Error('Máximo de 10 produtos podem ser comparados de uma vez');
       error.statusCode = 400;
       error.errorCode = 'TOO_MANY_PRODUCTS';
       throw error;
@@ -213,7 +213,7 @@ router.get('/compare/visual', async (req, res, next) => {
     const { ids } = req.query;
     
     if (!ids || ids.trim() === '') {
-      const error = new Error('At least one valid product ID is required');
+      const error = new Error('Pelo menos um ID de produto válido é obrigatório');
       error.statusCode = 400;
       error.errorCode = 'INVALID_IDS';
       throw error;
@@ -222,14 +222,14 @@ router.get('/compare/visual', async (req, res, next) => {
     const productIds = ids.split(',').map(id => id.trim()).filter(id => id);
     
     if (productIds.length === 0) {
-      const error = new Error('At least one valid product ID is required');
+      const error = new Error('Pelo menos um ID de produto válido é obrigatório');
       error.statusCode = 400;
       error.errorCode = 'INVALID_IDS';
       throw error;
     }
 
     if (productIds.length > 6) {
-      const error = new Error('Maximum 6 products can be compared visually');
+      const error = new Error('Máximo de 6 produtos podem ser comparados visualmente');
       error.statusCode = 400;
       error.errorCode = 'TOO_MANY_PRODUCTS';
       throw error;
@@ -293,7 +293,7 @@ router.get('/compare/matrix', async (req, res, next) => {
     const { ids } = req.query;
     
     if (!ids || ids.trim() === '') {
-      const error = new Error('At least one valid product ID is required');
+      const error = new Error('Pelo menos um ID de produto válido é obrigatório');
       error.statusCode = 400;
       error.errorCode = 'INVALID_IDS';
       throw error;
@@ -302,14 +302,14 @@ router.get('/compare/matrix', async (req, res, next) => {
     const productIds = ids.split(',').map(id => id.trim()).filter(id => id);
     
     if (productIds.length === 0) {
-      const error = new Error('At least one valid product ID is required');
+      const error = new Error('Pelo menos um ID de produto válido é obrigatório');
       error.statusCode = 400;
       error.errorCode = 'INVALID_IDS';
       throw error;
     }
 
     if (productIds.length > 8) {
-      const error = new Error('Maximum 8 products can be compared in matrix view');
+      const error = new Error('Máximo de 8 produtos podem ser comparados na visualização de matriz');
       error.statusCode = 400;
       error.errorCode = 'TOO_MANY_PRODUCTS';
       throw error;
@@ -383,7 +383,7 @@ router.get('/compare/recommendations', async (req, res, next) => {
     const { ids, criteria } = req.query;
     
     if (!ids || ids.trim() === '') {
-      const error = new Error('At least one valid product ID is required');
+      const error = new Error('Pelo menos um ID de produto válido é obrigatório');
       error.statusCode = 400;
       error.errorCode = 'INVALID_IDS';
       throw error;
@@ -393,14 +393,14 @@ router.get('/compare/recommendations', async (req, res, next) => {
     const recommendationCriteria = criteria ? criteria.split(',') : ['value', 'rating', 'price'];
     
     if (productIds.length === 0) {
-      const error = new Error('At least one valid product ID is required');
+      const error = new Error('Pelo menos um ID de produto válido é obrigatório');
       error.statusCode = 400;
       error.errorCode = 'INVALID_IDS';
       throw error;
     }
 
     if (productIds.length > 10) {
-      const error = new Error('Maximum 10 products can be analyzed for recommendations');
+      const error = new Error('Máximo de 10 produtos podem ser analisados para recomendações');
       error.statusCode = 400;
       error.errorCode = 'TOO_MANY_PRODUCTS';
       throw error;
@@ -491,7 +491,7 @@ router.get('/search', async (req, res, next) => {
     const { q } = req.query;
     
     if (!q || q.trim() === '') {
-      const error = new Error('Search query is required');
+      const error = new Error('Consulta de busca é obrigatória');
       error.statusCode = 400;
       error.errorCode = 'MISSING_QUERY';
       throw error;
@@ -594,7 +594,7 @@ router.get('/category/:category', async (req, res, next) => {
     const { category } = req.params;
     
     if (!category || category.trim() === '') {
-      const error = new Error('Category is required');
+      const error = new Error('Categoria é obrigatória');
       error.statusCode = 400;
       error.errorCode = 'MISSING_CATEGORY';
       throw error;
@@ -610,7 +610,7 @@ router.get('/category/:category', async (req, res, next) => {
     });
   } catch (error) {
     // Definir código de status apropriado para validação de categoria
-    if (error.message.includes('Category is required')) {
+    if (error.message.includes('Categoria é obrigatória')) {
       error.statusCode = 400;
       error.errorCode = 'MISSING_CATEGORY';
     }
@@ -628,7 +628,7 @@ router.get('/:id', async (req, res, next) => {
     
     // Validar parâmetro ID
     if (!id || id.trim() === '' || id === '') {
-      const error = new Error('Product ID is required');
+      const error = new Error('ID do produto é obrigatório');
       error.statusCode = 404;
       error.errorCode = 'MISSING_ID';
       throw error;
@@ -645,7 +645,7 @@ router.get('/:id', async (req, res, next) => {
     if (error.message.includes('Product not found')) {
       error.statusCode = 404;
       error.errorCode = 'PRODUCT_NOT_FOUND';
-      error.message = 'Product not found'; // Limpar a mensagem
+      error.message = 'Produto não encontrado'; // Limpar a mensagem
     }
     next(error);
   }

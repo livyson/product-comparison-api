@@ -35,7 +35,7 @@ const limiter = rateLimit({
   message: {
     success: false,
     error: {
-      message: 'Too many requests from this IP, please try again later.',
+      message: 'Muitas requisições deste IP, tente novamente mais tarde.',
       code: 'RATE_LIMIT_EXCEEDED'
     }
   }
@@ -57,7 +57,7 @@ if (NODE_ENV === 'development') {
 app.get('/health', (req, res) => {
   res.status(200).json({
     success: true,
-    message: 'Product Comparison API is running',
+    message: 'API de Comparação de Produtos está funcionando',
     timestamp: new Date().toISOString(),
     environment: NODE_ENV
   });
@@ -71,7 +71,7 @@ app.use('*', (req, res) => {
   res.status(404).json({
     success: false,
     error: {
-      message: `Route ${req.originalUrl} not found`,
+      message: `Rota ${req.originalUrl} não encontrada`,
       code: 'ROUTE_NOT_FOUND'
     }
   });

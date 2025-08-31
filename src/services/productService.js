@@ -20,9 +20,9 @@ class ProductService {
       return JSON.parse(data);
     } catch (error) {
       if (error.code === 'ENOENT') {
-        throw new Error('Products data file not found');
+        throw new Error('Arquivo de dados dos produtos não encontrado');
       }
-      throw new Error('Failed to read products data');
+      throw new Error('Falha ao ler dados dos produtos');
     }
   }
 
@@ -56,7 +56,7 @@ class ProductService {
 
       return products;
     } catch (error) {
-      throw new Error(`Failed to get products: ${error.message}`);
+      throw new Error(`Falha ao obter produtos: ${error.message}`);
     }
   }
 
@@ -71,12 +71,12 @@ class ProductService {
       const product = products.find(p => p.id === id);
       
       if (!product) {
-        throw new Error('Product not found');
+        throw new Error('Produto não encontrado');
       }
 
       return product;
     } catch (error) {
-      throw new Error(`Failed to get product: ${error.message}`);
+      throw new Error(`Falha ao obter produto: ${error.message}`);
     }
   }
 
@@ -88,14 +88,14 @@ class ProductService {
   async getProductsByIds(ids) {
     try {
       if (!Array.isArray(ids) || ids.length === 0) {
-        throw new Error('Product IDs array is required');
+        throw new Error('Array de IDs dos produtos é obrigatório');
       }
 
       const products = await this.readProductsData();
       const foundProducts = products.filter(product => ids.includes(product.id));
 
       if (foundProducts.length === 0) {
-        throw new Error('No products found with the provided IDs');
+        throw new Error('Nenhum produto encontrado com os IDs fornecidos');
       }
 
       // Ordenar produtos pela ordem dos IDs fornecidos
@@ -105,7 +105,7 @@ class ProductService {
 
       return sortedProducts;
     } catch (error) {
-      throw new Error(`Failed to get products for comparison: ${error.message}`);
+      throw new Error(`Falha ao obter produtos para comparação: ${error.message}`);
     }
   }
 
@@ -117,7 +117,7 @@ class ProductService {
   async searchProducts(query) {
     try {
       if (!query || typeof query !== 'string') {
-        throw new Error('Search query is required');
+        throw new Error('Consulta de busca é obrigatória');
       }
 
       const products = await this.readProductsData();
@@ -131,7 +131,7 @@ class ProductService {
 
       return matchingProducts;
     } catch (error) {
-      throw new Error(`Failed to search products: ${error.message}`);
+      throw new Error(`Falha ao buscar produtos: ${error.message}`);
     }
   }
 
@@ -143,7 +143,7 @@ class ProductService {
   async getProductsByCategory(category) {
     try {
       if (!category) {
-        throw new Error('Category is required');
+        throw new Error('Categoria é obrigatória');
       }
 
       const products = await this.readProductsData();
@@ -151,7 +151,7 @@ class ProductService {
         product.category.toLowerCase() === category.toLowerCase()
       );
     } catch (error) {
-      throw new Error(`Failed to get products by category: ${error.message}`);
+      throw new Error(`Falha ao obter produtos por categoria: ${error.message}`);
     }
   }
 
@@ -165,7 +165,7 @@ class ProductService {
       const categories = [...new Set(products.map(product => product.category))];
       return categories.sort();
     } catch (error) {
-      throw new Error(`Failed to get categories: ${error.message}`);
+      throw new Error(`Falha ao obter categorias: ${error.message}`);
     }
   }
 
@@ -179,7 +179,7 @@ class ProductService {
       const brands = [...new Set(products.map(product => product.brand))];
       return brands.sort();
     } catch (error) {
-      throw new Error(`Failed to get brands: ${error.message}`);
+      throw new Error(`Falha ao obter marcas: ${error.message}`);
     }
   }
 
@@ -206,7 +206,7 @@ class ProductService {
 
       return stats;
     } catch (error) {
-      throw new Error(`Failed to get product statistics: ${error.message}`);
+      throw new Error(`Falha ao obter estatísticas dos produtos: ${error.message}`);
     }
   }
 }
