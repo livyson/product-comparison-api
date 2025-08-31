@@ -147,45 +147,7 @@ Comparação detalhada com análise de características.
 }
 ```
 
-### 5. GET /api/products/compare/visual
-Comparação visual otimizada para frontend (máximo 6 produtos).
-
-**Query Parameters:**
-- `ids` (string): IDs dos produtos separados por vírgula (ex: `ids=1,2,3`)
-
-**Resposta de Sucesso (200):**
-```json
-{
-  "success": true,
-  "data": {
-    "layout": { "columns": 3, "maxColumns": 6, "responsive": "table" },
-    "products": [...],
-    "comparison": { "priceRange": {...}, "bestValue": {...} }
-  }
-}
-```
-
-### 6. GET /api/products/compare/matrix
-Matriz de comparação com todas as características lado a lado (máximo 8 produtos).
-
-**Query Parameters:**
-- `ids` (string): IDs dos produtos separados por vírgula (ex: `ids=1,2,3`)
-
-**Resposta de Sucesso (200):**
-```json
-{
-  "success": true,
-  "data": {
-    "products": [...],
-    "products": [...],
-    "features": ["screen", "storage", "ram", "camera"],
-    "matrix": [...],
-    "summary": { "totalProducts": 3, "totalFeatures": 4, "priceRange": {...} }
-  }
-}
-```
-
-### 7. GET /api/products/compare/recommendations
+### 5. GET /api/products/compare/recommendations
 Recomendações baseadas na análise de comparação.
 
 **Query Parameters:**

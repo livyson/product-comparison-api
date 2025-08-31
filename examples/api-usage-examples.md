@@ -141,102 +141,7 @@ curl "http://localhost:3000/api/products/compare/detailed?ids=1,2,3"
 }
 ```
 
-## 3. Comparação Visual
-
-### Layout otimizado para frontend
-```bash
-curl "http://localhost:3000/api/products/compare/visual?ids=1,2,3"
-```
-
-**Resposta:**
-```json
-{
-  "success": true,
-  "data": {
-    "layout": {
-      "columns": 3,
-      "maxColumns": 6,
-      "responsive": "table"
-    },
-    "products": [
-      {
-        "id": "1",
-        "name": "iPhone 15 Pro",
-        "imageUrl": "https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=400&h=400&fit=crop",
-        "price": 999.99,
-        "rating": 4.8,
-        "category": "smartphones",
-        "brand": "Apple",
-        "inStock": true,
-        "highlights": {
-          "topFeature": "screen",
-          "priceRange": "Premium",
-          "ratingLevel": "Excellent"
-        }
-      }
-    ],
-    "comparison": {
-      "priceRange": {
-        "min": 999.99,
-        "max": 1999.99
-      },
-      "categories": ["smartphones", "laptops"],
-      "brands": ["Apple", "Samsung"],
-      "bestValue": {
-        "id": "1",
-        "name": "iPhone 15 Pro"
-      }
-    }
-  }
-}
-```
-
-## 4. Matriz de Comparação
-
-### Comparação lado a lado de características
-```bash
-curl "http://localhost:3000/api/products/compare/matrix?ids=1,2,3"
-```
-
-**Resposta:**
-```json
-{
-  "success": true,
-  "data": {
-    "products": [...],
-    "features": ["screen", "storage", "ram", "processor", "camera", "battery"],
-    "matrix": [
-      {
-        "feature": "screen",
-        "values": [
-          {
-            "productId": "1",
-            "productName": "iPhone 15 Pro",
-            "value": "6.1 inch Super Retina XDR OLED",
-            "hasFeature": true
-          },
-          {
-            "productId": "2",
-            "productName": "Samsung Galaxy S24 Ultra",
-            "value": "6.8 inch Dynamic AMOLED 2X",
-            "hasFeature": true
-          },
-          {
-            "productId": "3",
-            "productName": "MacBook Pro 14\" M3 Pro",
-            "value": "14.2 inch Liquid Retina XDR",
-            "hasFeature": true
-          }
-        ]
-      }
-    ],
-    "summary": {
-      "totalProducts": 3,
-      "totalFeatures": 6,
-      "priceRange": {
-        "min": 999.99,
-        "max": 1999.99,
-        "average": 1399.99
+## 3. Recomendações de Comparação
       },
       "ratingRange": {
         "min": 4.7,
@@ -321,10 +226,10 @@ curl "http://localhost:3000/api/products/compare/recommendations?ids=1,2&criteri
 curl "http://localhost:3000/api/products/compare/detailed?ids=1,2"
 
 # Comparar laptops
-curl "http://localhost:3000/api/products/compare/visual?ids=3,4"
+curl "http://localhost:3000/api/products/compare/detailed?ids=3,4"
 
 # Comparar produtos de áudio
-curl "http://localhost:3000/api/products/compare/matrix?ids=5"
+curl "http://localhost:3000/api/products/compare/detailed?ids=5"
 ```
 
 ### Buscar alternativas mais baratas
@@ -350,9 +255,9 @@ const compareProducts = async (ids) => {
   return data.data.comparison;
 };
 
-// Comparação visual
-const getVisualComparison = async (ids) => {
-  const response = await fetch(`/api/products/compare/visual?ids=${ids.join(',')}`);
+// Comparação detalhada
+const getDetailedComparison = async (ids) => {
+  const response = await fetch(`/api/products/compare/detailed?ids=${ids.join(',')}`);
   const data = await response.json();
   return data.data;
 };

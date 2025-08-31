@@ -67,7 +67,7 @@ app.get('/health', (req, res) => {
 app.use('/api/products', productRoutes);
 
 // 404 handler for undefined routes
-app.use('*', (req, res) => {
+app.use((req, res) => {
   res.status(404).json({
     success: false,
     error: {

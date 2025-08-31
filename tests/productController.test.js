@@ -81,7 +81,7 @@ describe('Product API Endpoints', () => {
         .expect(404);
 
       expect(response.body.success).toBe(false);
-      expect(response.body.error.message).toBe('Product not found');
+      expect(response.body.error.message).toBe('Produto não encontrado');
     });
 
     it('should return 200 for root products endpoint', async () => {
@@ -116,7 +116,7 @@ describe('Product API Endpoints', () => {
         .expect(400);
 
       expect(response.body.success).toBe(false);
-      expect(response.body.error.message).toBe('At least one valid product ID is required');
+      expect(response.body.error.message).toBe('Pelo menos um ID de produto válido é obrigatório');
     });
 
     it('should return 400 for empty IDs parameter', async () => {
@@ -125,7 +125,7 @@ describe('Product API Endpoints', () => {
         .expect(400);
 
       expect(response.body.success).toBe(false);
-      expect(response.body.error.message).toBe('At least one valid product ID is required');
+      expect(response.body.error.message).toBe('Pelo menos um ID de produto válido é obrigatório');
     });
 
     it('should limit comparison to maximum 10 products', async () => {
@@ -134,7 +134,7 @@ describe('Product API Endpoints', () => {
         .expect(400);
 
       expect(response.body.success).toBe(false);
-      expect(response.body.error.message).toBe('Maximum 10 products can be compared at once');
+      expect(response.body.error.message).toBe('Máximo de 10 produtos podem ser comparados de uma vez');
     });
   });
 
@@ -151,7 +151,6 @@ describe('Product API Endpoints', () => {
       expect(response.body.data.analysis.brands).toBeDefined();
       expect(response.body.data.analysis.priceAnalysis).toBeDefined();
       expect(response.body.data.analysis.ratingAnalysis).toBeDefined();
-      expect(response.body.data.analysis.valueAnalysis).toBeDefined();
     });
 
     it('should return 400 for missing IDs parameter', async () => {
@@ -160,7 +159,7 @@ describe('Product API Endpoints', () => {
         .expect(400);
 
       expect(response.body.success).toBe(false);
-      expect(response.body.error.message).toBe('At least one valid product ID is required');
+      expect(response.body.error.message).toBe('Pelo menos um ID de produto válido é obrigatório');
     });
 
     it('should limit comparison to maximum 10 products', async () => {
@@ -169,56 +168,11 @@ describe('Product API Endpoints', () => {
         .expect(400);
 
       expect(response.body.success).toBe(false);
-      expect(response.body.error.message).toBe('Maximum 10 products can be compared at once');
+      expect(response.body.error.message).toBe('Máximo de 10 produtos podem ser comparados de uma vez');
     });
   });
 
-  // Test GET /api/products/compare/visual
-  describe('GET /api/products/compare/visual', () => {
-    it('should provide visual comparison data', async () => {
-      const response = await request(app)
-        .get('/api/products/compare/visual?ids=1,2')
-        .expect(200);
 
-      expect(response.body.success).toBe(true);
-      expect(response.body.data.layout).toBeDefined();
-      expect(response.body.data.products).toBeDefined();
-      expect(response.body.data.comparison).toBeDefined();
-    });
-
-    it('should limit visual comparison to maximum 6 products', async () => {
-      const response = await request(app)
-        .get('/api/products/compare/visual?ids=1,2,3,4,5,6,7')
-        .expect(400);
-
-      expect(response.body.success).toBe(false);
-      expect(response.body.error.message).toBe('Maximum 6 products can be compared visually');
-    });
-  });
-
-  // Test GET /api/products/compare/matrix
-  describe('GET /api/products/compare/matrix', () => {
-    it('should provide matrix comparison data', async () => {
-      const response = await request(app)
-        .get('/api/products/compare/matrix?ids=1,2')
-        .expect(200);
-
-      expect(response.body.success).toBe(true);
-      expect(response.body.data.products).toBeDefined();
-      expect(response.body.data.features).toBeDefined();
-      expect(response.body.data.matrix).toBeDefined();
-      expect(response.body.data.summary).toBeDefined();
-    });
-
-    it('should limit matrix comparison to maximum 8 products', async () => {
-      const response = await request(app)
-        .get('/api/products/compare/matrix?ids=1,2,3,4,5,6,7,8,9')
-        .expect(400);
-
-      expect(response.body.success).toBe(false);
-      expect(response.body.error.message).toBe('Maximum 8 products can be compared in matrix view');
-    });
-  });
 
   // Test GET /api/products/compare/recommendations
   describe('GET /api/products/compare/recommendations', () => {
@@ -288,7 +242,7 @@ describe('Product API Endpoints', () => {
         .expect(400);
 
       expect(response.body.success).toBe(false);
-      expect(response.body.error.message).toBe('Search query is required');
+      expect(response.body.error.message).toBe('Consulta de busca é obrigatória');
     });
   });
 
@@ -356,7 +310,7 @@ describe('Product API Endpoints', () => {
         .expect(404);
 
       expect(response.body.success).toBe(false);
-      expect(response.body.error.message).toContain('not found');
+      expect(response.body.error.message).toContain('não encontrada');
     });
 
     it('should handle malformed requests gracefully', async () => {

@@ -24,13 +24,17 @@ const errorHandler = (err, req, res, next) => {
     errorCode = 'VALIDATION_ERROR';
     message = 'Falha na validação';
   } else if (err.name === 'CastError') {
-    statusCode = 400;
+    statusCode = 404;
     errorCode = 'INVALID_ID_FORMAT';
     message = 'Formato de ID inválido';
   } else if (err.code === 'ENOENT') {
     statusCode = 500;
     errorCode = 'FILE_NOT_FOUND';
     message = 'Arquivo de dados não encontrado';
+  } else if (err.message && err.message.includes('Falha ao obter produto')) {
+    statusCode = 404;
+    errorCode = 'PRODUCT_NOT_FOUND';
+    message = 'Produto não encontrado';
   }
 
   // Não vazar detalhes de erro em produção

@@ -75,11 +75,11 @@ describe('Product Service', () => {
     });
 
     it('should throw error for non-existent ID', async () => {
-      await expect(productService.getProductById('999')).rejects.toThrow('Product not found');
+      await expect(productService.getProductById('999')).rejects.toThrow('Falha ao obter produto: Produto não encontrado');
     });
 
     it('should throw error for invalid ID', async () => {
-      await expect(productService.getProductById('')).rejects.toThrow('Product not found');
+      await expect(productService.getProductById('')).rejects.toThrow('Falha ao obter produto: Produto não encontrado');
     });
   });
 
@@ -103,11 +103,11 @@ describe('Product Service', () => {
     });
 
     it('should throw error for empty IDs array', async () => {
-      await expect(productService.getProductsByIds([])).rejects.toThrow('Product IDs array is required');
+      await expect(productService.getProductsByIds([])).rejects.toThrow('Falha ao obter produtos para comparação: Array de IDs dos produtos é obrigatório');
     });
 
     it('should throw error for non-array IDs', async () => {
-      await expect(productService.getProductsByIds('1,2')).rejects.toThrow('Product IDs array is required');
+      await expect(productService.getProductsByIds('1,2')).rejects.toThrow('Falha ao obter produtos para comparação: Array de IDs dos produtos é obrigatório');
     });
 
     it('should handle non-existent IDs gracefully', async () => {
@@ -154,11 +154,11 @@ describe('Product Service', () => {
     });
 
     it('should throw error for missing query', async () => {
-      await expect(productService.searchProducts('')).rejects.toThrow('Search query is required');
+      await expect(productService.searchProducts('')).rejects.toThrow('Falha ao buscar produtos: Consulta de busca é obrigatória');
     });
 
     it('should throw error for non-string query', async () => {
-      await expect(productService.searchProducts(123)).rejects.toThrow('Search query is required');
+      await expect(productService.searchProducts(123)).rejects.toThrow('Falha ao buscar produtos: Consulta de busca é obrigatória');
     });
   });
 
@@ -181,7 +181,7 @@ describe('Product Service', () => {
     });
 
     it('should throw error for missing category', async () => {
-      await expect(productService.getProductsByCategory('')).rejects.toThrow('Category is required');
+      await expect(productService.getProductsByCategory('')).rejects.toThrow('Falha ao obter produtos por categoria: Categoria é obrigatória');
     });
   });
 

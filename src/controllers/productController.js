@@ -87,7 +87,7 @@ router.get('/compare', async (req, res, next) => {
         priceRange: {
           min: Math.min(...products.map(p => p.price)),
           max: Math.max(...products.map(p => p.price)),
-          average: Math.round(products.reduce((sum, p) => sum + p.price, 0) / products.length * 100) / 100
+          average: Math.round(products.reduce((sum, p) => sum + p.price, 0) / products.length * 100) / 100  // arredondamento de duas casas decimais
         },
         ratingComparison: products.map(p => ({
           id: p.id,
@@ -101,8 +101,8 @@ router.get('/compare', async (req, res, next) => {
           id: p.id,
           name: p.name,
           price: p.price,
-          pricePerRating: Math.round((p.price / p.rating) * 100) / 100
-        })).sort((a, b) => a.price - b.price)
+          pricePerRating: Math.round((p.price / p.rating) * 100) / 100 // arredondamento de duas casas decimais
+        })).sort((a, b) => a.price - b.price) // ordem decrescente 
       }
     };
     
@@ -179,16 +179,7 @@ router.get('/compare/detailed', async (req, res, next) => {
             rating: p.rating,
             ratingCategory: p.rating >= 4.5 ? 'Excellent' : p.rating >= 4.0 ? 'Good' : p.rating >= 3.5 ? 'Average' : 'Below Average'
           }))
-        },
-        valueAnalysis: products.map(p => ({
-          id: p.id,
-          name: p.name,
-          price: p.price,
-          rating: p.rating,
-          valueScore: Math.round((p.rating / p.price * 1000) * 100) / 100,
-          recommendation: p.rating >= 4.5 && p.price < 1000 ? 'Best Value' : 
-                         p.rating >= 4.0 && p.price < 800 ? 'Good Value' : 'Consider Alternatives'
-        })).sort((a, b) => b.valueScore - a.valueScore)
+        }
       }
     };
     
@@ -204,175 +195,9 @@ router.get('/compare/detailed', async (req, res, next) => {
   }
 });
 
-/**
- * GET /api/products/compare/visual
- * Comparação visual lado a lado para frontend
- */
-router.get('/compare/visual', async (req, res, next) => {
-  try {
-    const { ids } = req.query;
-    
-    if (!ids || ids.trim() === '') {
-      const error = new Error('Pelo menos um ID de produto válido é obrigatório');
-      error.statusCode = 400;
-      error.errorCode = 'INVALID_IDS';
-      throw error;
-    }
 
-    const productIds = ids.split(',').map(id => id.trim()).filter(id => id);
-    
-    if (productIds.length === 0) {
-      const error = new Error('Pelo menos um ID de produto válido é obrigatório');
-      error.statusCode = 400;
-      error.errorCode = 'INVALID_IDS';
-      throw error;
-    }
 
-    if (productIds.length > 6) {
-      const error = new Error('Máximo de 6 produtos podem ser comparados visualmente');
-      error.statusCode = 400;
-      error.errorCode = 'TOO_MANY_PRODUCTS';
-      throw error;
-    }
-
-    const products = await productService.getProductsByIds(productIds);
-    
-    // Dados de comparação visual otimizados para exibição no frontend
-    const visualComparison = {
-      layout: {
-        columns: products.length,
-        maxColumns: 6,
-        responsive: products.length > 3 ? 'grid' : 'table'
-      },
-      products: products.map(p => ({
-        id: p.id,
-        name: p.name,
-        imageUrl: p.imageUrl,
-        price: p.price,
-        rating: p.rating,
-        category: p.category,
-        brand: p.brand,
-        inStock: p.inStock,
-        highlights: {
-          topFeature: p.specifications ? Object.keys(p.specifications)[0] : 'N/A',
-          priceRange: p.price < 500 ? 'Budget' : p.price < 1000 ? 'Mid-range' : 'Premium',
-          ratingLevel: p.rating >= 4.5 ? 'Excellent' : p.rating >= 4.0 ? 'Good' : 'Average'
-        }
-      })),
-      comparison: {
-        priceRange: {
-          min: Math.min(...products.map(p => p.price)),
-          max: Math.max(...products.map(p => p.price))
-        },
-        categories: [...new Set(products.map(p => p.category))],
-        brands: [...new Set(products.map(p => p.brand))],
-        bestValue: products.reduce((best, current) => 
-          (current.rating / current.price) > (best.rating / best.price) ? current : best
-        )
-      }
-    };
-    
-    res.json({
-      success: true,
-      data: visualComparison,
-      total: products.length,
-      requestedIds: productIds,
-      foundIds: products.map(p => p.id)
-    });
-  } catch (error) {
-    next(error);
-  }
-});
-
-/**
- * GET /api/products/compare/matrix
- * Matriz de comparação com todos os recursos lado a lado
- */
-router.get('/compare/matrix', async (req, res, next) => {
-  try {
-    const { ids } = req.query;
-    
-    if (!ids || ids.trim() === '') {
-      const error = new Error('Pelo menos um ID de produto válido é obrigatório');
-      error.statusCode = 400;
-      error.errorCode = 'INVALID_IDS';
-      throw error;
-    }
-
-    const productIds = ids.split(',').map(id => id.trim()).filter(id => id);
-    
-    if (productIds.length === 0) {
-      const error = new Error('Pelo menos um ID de produto válido é obrigatório');
-      error.statusCode = 400;
-      error.errorCode = 'INVALID_IDS';
-      throw error;
-    }
-
-    if (productIds.length > 8) {
-      const error = new Error('Máximo de 8 produtos podem ser comparados na visualização de matriz');
-      error.statusCode = 400;
-      error.errorCode = 'TOO_MANY_PRODUCTS';
-      throw error;
-    }
-
-    const products = await productService.getProductsByIds(productIds);
-    
-    // Criar matriz de comparação
-    const allFeatures = new Set();
-    products.forEach(p => {
-      if (p.specifications) {
-        Object.keys(p.specifications).forEach(feature => allFeatures.add(feature));
-      }
-    });
-    
-    const matrixComparison = {
-      products: products.map(p => ({
-        id: p.id,
-        name: p.name,
-        imageUrl: p.imageUrl,
-        price: p.price,
-        rating: p.rating,
-        category: p.category,
-        brand: p.brand,
-        inStock: p.inStock
-      })),
-      features: Array.from(allFeatures),
-      matrix: Array.from(allFeatures).map(feature => ({
-        feature: feature,
-        values: products.map(p => ({
-          productId: p.id,
-          productName: p.name,
-          value: p.specifications && p.specifications[feature] ? p.specifications[feature] : 'N/A',
-          hasFeature: p.specifications && p.specifications[feature] ? true : false
-        }))
-      })),
-      summary: {
-        totalProducts: products.length,
-        totalFeatures: allFeatures.size,
-        priceRange: {
-          min: Math.min(...products.map(p => p.price)),
-          max: Math.max(...products.map(p => p.price)),
-          average: Math.round(products.reduce((sum, p) => sum + p.price, 0) / products.length * 100) / 100
-        },
-        ratingRange: {
-          min: Math.min(...products.map(p => p.rating)),
-          max: Math.max(...products.map(p => p.rating)),
-          average: Math.round(products.reduce((sum, p) => sum + p.rating, 0) / products.length * 100) / 100
-        }
-      }
-    };
-    
-    res.json({
-      success: true,
-      data: matrixComparison,
-      total: products.length,
-      requestedIds: productIds,
-      foundIds: products.map(p => p.id)
-    });
-  } catch (error) {
-    next(error);
-  }
-});
+// FUI ATÉ AQUI! 
 
 /**
  * GET /api/products/compare/recommendations
@@ -415,9 +240,9 @@ router.get('/compare/recommendations', async (req, res, next) => {
       criteria: recommendationCriteria,
       recommendations: {
         bestValue: allProducts
-          .filter(p => !productIds.includes(p.id))
-          .sort((a, b) => (b.rating / b.price) - (a.rating / a.price))
-          .slice(0, 3)
+          .filter(p => !productIds.includes(p.id))  // tira os produtos (ids) já escolhidos pelo usuário
+          .sort((a, b) => (b.rating / b.price) - (a.rating / a.price)) // ordena os produtos pelo melhor custo benefício
+          .slice(0, 3)  // pega só os 3 primeiros
           .map(p => ({
             id: p.id,
             name: p.name,
@@ -595,7 +420,7 @@ router.get('/category/:category', async (req, res, next) => {
     
     if (!category || category.trim() === '') {
       const error = new Error('Categoria é obrigatória');
-      error.statusCode = 400;
+      error.statusCode = 404;
       error.errorCode = 'MISSING_CATEGORY';
       throw error;
     }
@@ -611,7 +436,7 @@ router.get('/category/:category', async (req, res, next) => {
   } catch (error) {
     // Definir código de status apropriado para validação de categoria
     if (error.message.includes('Categoria é obrigatória')) {
-      error.statusCode = 400;
+      error.statusCode = 404;
       error.errorCode = 'MISSING_CATEGORY';
     }
     next(error);
@@ -642,10 +467,10 @@ router.get('/:id', async (req, res, next) => {
     });
   } catch (error) {
     // Definir código de status apropriado para produto não encontrado
-    if (error.message.includes('Product not found')) {
+    if (error.message.includes('Produto não encontrado') || error.message.includes('Falha ao obter produto: Produto não encontrado')) {
       error.statusCode = 404;
       error.errorCode = 'PRODUCT_NOT_FOUND';
-      error.message = 'Produto não encontrado'; // Limpar a mensagem
+      error.message = 'Produto não encontrado';
     }
     next(error);
   }
