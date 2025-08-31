@@ -5,20 +5,20 @@ const router = express.Router();
 
 /**
  * GET /api/products
- * Get all products with optional filtering
+ * Obter todos os produtos com filtros opcionais
  */
 router.get('/', async (req, res, next) => {
   try {
-    // Extract query parameters for filtering
+    // Extrair parâmetros de consulta para filtragem
     const { category, brand, inStock, search } = req.query;
     
     let products;
     
-    // Handle search functionality
+    // Lidar com funcionalidade de busca
     if (search) {
       products = await productService.searchProducts(search);
     } else {
-      // Apply filters
+      // Aplicar filtros
       const filters = {};
       if (category) filters.category = category;
       if (brand) filters.brand = brand;
@@ -42,13 +42,13 @@ router.get('/', async (req, res, next) => {
 
 /**
  * GET /api/products/compare
- * Compare multiple products by IDs
+ * Comparar múltiplos produtos por IDs
  */
 router.get('/compare', async (req, res, next) => {
   try {
     const { ids } = req.query;
     
-    // Validate ids parameter
+    // Validar parâmetro ids
     if (!ids || ids.trim() === '') {
       const error = new Error('At least one valid product ID is required');
       error.statusCode = 400;
@@ -56,7 +56,7 @@ router.get('/compare', async (req, res, next) => {
       throw error;
     }
 
-    // Parse and validate IDs
+    // Analisar e validar IDs
     const productIds = ids.split(',').map(id => id.trim()).filter(id => id);
     
     if (productIds.length === 0) {
@@ -66,7 +66,7 @@ router.get('/compare', async (req, res, next) => {
       throw error;
     }
 
-    // Limit comparison to maximum 10 products
+    // Limitar comparação a máximo 10 produtos
     if (productIds.length > 10) {
       const error = new Error('Maximum 10 products can be compared at once');
       error.statusCode = 400;
@@ -76,7 +76,7 @@ router.get('/compare', async (req, res, next) => {
 
     const products = await productService.getProductsByIds(productIds);
     
-    // Enhanced comparison data
+    // Dados de comparação aprimorados
     const comparisonData = {
       products: products,
       comparison: {
@@ -120,7 +120,7 @@ router.get('/compare', async (req, res, next) => {
 
 /**
  * GET /api/products/compare/detailed
- * Detailed comparison with feature analysis
+ * Comparação detalhada com análise de recursos
  */
 router.get('/compare/detailed', async (req, res, next) => {
   try {
@@ -151,7 +151,7 @@ router.get('/compare/detailed', async (req, res, next) => {
 
     const products = await productService.getProductsByIds(productIds);
     
-    // Detailed feature comparison
+    // Comparação detalhada de recursos
     const featureComparison = {
       products: products,
       analysis: {
@@ -206,7 +206,7 @@ router.get('/compare/detailed', async (req, res, next) => {
 
 /**
  * GET /api/products/compare/visual
- * Side-by-side visual comparison for frontend
+ * Comparação visual lado a lado para frontend
  */
 router.get('/compare/visual', async (req, res, next) => {
   try {
@@ -237,7 +237,7 @@ router.get('/compare/visual', async (req, res, next) => {
 
     const products = await productService.getProductsByIds(productIds);
     
-    // Visual comparison data optimized for frontend display
+    // Dados de comparação visual otimizados para exibição no frontend
     const visualComparison = {
       layout: {
         columns: products.length,
@@ -286,7 +286,7 @@ router.get('/compare/visual', async (req, res, next) => {
 
 /**
  * GET /api/products/compare/matrix
- * Comparison matrix with all features side-by-side
+ * Matriz de comparação com todos os recursos lado a lado
  */
 router.get('/compare/matrix', async (req, res, next) => {
   try {
@@ -317,7 +317,7 @@ router.get('/compare/matrix', async (req, res, next) => {
 
     const products = await productService.getProductsByIds(productIds);
     
-    // Create comparison matrix
+    // Criar matriz de comparação
     const allFeatures = new Set();
     products.forEach(p => {
       if (p.specifications) {
@@ -376,7 +376,7 @@ router.get('/compare/matrix', async (req, res, next) => {
 
 /**
  * GET /api/products/compare/recommendations
- * Get recommendations based on comparison analysis
+ * Obter recomendações baseadas na análise de comparação
  */
 router.get('/compare/recommendations', async (req, res, next) => {
   try {
@@ -409,7 +409,7 @@ router.get('/compare/recommendations', async (req, res, next) => {
     const products = await productService.getProductsByIds(productIds);
     const allProducts = await productService.getAllProducts();
     
-    // Generate recommendations based on criteria
+    // Gerar recomendações baseadas nos critérios
     const recommendations = {
       analyzedProducts: products,
       criteria: recommendationCriteria,
@@ -484,7 +484,7 @@ router.get('/compare/recommendations', async (req, res, next) => {
 
 /**
  * GET /api/products/search
- * Search products by query
+ * Buscar produtos por consulta
  */
 router.get('/search', async (req, res, next) => {
   try {
@@ -512,7 +512,7 @@ router.get('/search', async (req, res, next) => {
 
 /**
  * GET /api/products/stats/overview
- * Get product statistics overview
+ * Obter visão geral das estatísticas dos produtos
  */
 router.get('/stats/overview', async (req, res, next) => {
   try {
@@ -529,7 +529,7 @@ router.get('/stats/overview', async (req, res, next) => {
 
 /**
  * GET /api/products/categories/list
- * Get list of available categories
+ * Obter lista de categorias disponíveis
  */
 router.get('/categories/list', async (req, res, next) => {
   try {
@@ -547,7 +547,7 @@ router.get('/categories/list', async (req, res, next) => {
 
 /**
  * GET /api/products/brands/list
- * Get list of available brands
+ * Obter lista de marcas disponíveis
  */
 router.get('/brands/list', async (req, res, next) => {
   try {
@@ -565,7 +565,7 @@ router.get('/brands/list', async (req, res, next) => {
 
 /**
  * GET /api/products/price-range
- * Get price range statistics
+ * Obter estatísticas de faixa de preço
  */
 router.get('/price-range', async (req, res, next) => {
   try {
@@ -587,7 +587,7 @@ router.get('/price-range', async (req, res, next) => {
 
 /**
  * GET /api/products/category/:category
- * Get products by category
+ * Obter produtos por categoria
  */
 router.get('/category/:category', async (req, res, next) => {
   try {
@@ -609,7 +609,7 @@ router.get('/category/:category', async (req, res, next) => {
       category: category
     });
   } catch (error) {
-    // Set proper status code for category validation
+    // Definir código de status apropriado para validação de categoria
     if (error.message.includes('Category is required')) {
       error.statusCode = 400;
       error.errorCode = 'MISSING_CATEGORY';
@@ -620,13 +620,13 @@ router.get('/category/:category', async (req, res, next) => {
 
 /**
  * GET /api/products/:id
- * Get product by ID
+ * Obter produto por ID
  */
 router.get('/:id', async (req, res, next) => {
   try {
     const { id } = req.params;
     
-    // Validate ID parameter
+    // Validar parâmetro ID
     if (!id || id.trim() === '' || id === '') {
       const error = new Error('Product ID is required');
       error.statusCode = 404;
@@ -641,11 +641,11 @@ router.get('/:id', async (req, res, next) => {
       data: product
     });
   } catch (error) {
-    // Set proper status code for product not found
+    // Definir código de status apropriado para produto não encontrado
     if (error.message.includes('Product not found')) {
       error.statusCode = 404;
       error.errorCode = 'PRODUCT_NOT_FOUND';
-      error.message = 'Product not found'; // Clean up the message
+      error.message = 'Product not found'; // Limpar a mensagem
     }
     next(error);
   }

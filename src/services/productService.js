@@ -2,8 +2,8 @@ const fs = require('fs').promises;
 const path = require('path');
 
 /**
- * Product Service
- * Handles business logic for product operations
+ * Serviço de Produtos
+ * Gerencia a lógica de negócio para operações de produtos
  */
 class ProductService {
   constructor() {
@@ -11,8 +11,8 @@ class ProductService {
   }
 
   /**
-   * Read products data from JSON file
-   * @returns {Promise<Array>} Array of products
+   * Ler dados dos produtos do arquivo JSON
+   * @returns {Promise<Array>} Array de produtos
    */
   async readProductsData() {
     try {
@@ -27,15 +27,15 @@ class ProductService {
   }
 
   /**
-   * Get all products with optional filtering
-   * @param {Object} filters - Optional filters (category, brand, inStock)
-   * @returns {Promise<Array>} Filtered products
+   * Obter todos os produtos com filtros opcionais
+   * @param {Object} filters - Filtros opcionais (category, brand, inStock)
+   * @returns {Promise<Array>} Produtos filtrados
    */
   async getAllProducts(filters = {}) {
     try {
       let products = await this.readProductsData();
 
-      // Apply filters if provided
+      // Aplicar filtros se fornecidos
       if (filters.category) {
         products = products.filter(product => 
           product.category.toLowerCase() === filters.category.toLowerCase()
@@ -61,9 +61,9 @@ class ProductService {
   }
 
   /**
-   * Get product by ID
-   * @param {string} id - Product ID
-   * @returns {Promise<Object>} Product object
+   * Obter produto por ID
+   * @param {string} id - ID do produto
+   * @returns {Promise<Object>} Objeto do produto
    */
   async getProductById(id) {
     try {
@@ -81,9 +81,9 @@ class ProductService {
   }
 
   /**
-   * Get products by multiple IDs for comparison
-   * @param {Array<string>} ids - Array of product IDs
-   * @returns {Promise<Array>} Array of products
+   * Obter produtos por múltiplos IDs para comparação
+   * @param {Array<string>} ids - Array de IDs dos produtos
+   * @returns {Promise<Array>} Array de produtos
    */
   async getProductsByIds(ids) {
     try {
@@ -98,7 +98,7 @@ class ProductService {
         throw new Error('No products found with the provided IDs');
       }
 
-      // Sort products by the order of provided IDs
+      // Ordenar produtos pela ordem dos IDs fornecidos
       const sortedProducts = ids
         .map(id => foundProducts.find(product => product.id === id))
         .filter(Boolean);
@@ -110,9 +110,9 @@ class ProductService {
   }
 
   /**
-   * Search products by name or description
-   * @param {string} query - Search query
-   * @returns {Promise<Array>} Array of matching products
+   * Buscar produtos por nome ou descrição
+   * @param {string} query - Consulta de busca
+   * @returns {Promise<Array>} Array de produtos correspondentes
    */
   async searchProducts(query) {
     try {
@@ -136,9 +136,9 @@ class ProductService {
   }
 
   /**
-   * Get products by category
-   * @param {string} category - Product category
-   * @returns {Promise<Array>} Array of products in category
+   * Obter produtos por categoria
+   * @param {string} category - Categoria do produto
+   * @returns {Promise<Array>} Array de produtos na categoria
    */
   async getProductsByCategory(category) {
     try {
@@ -156,8 +156,8 @@ class ProductService {
   }
 
   /**
-   * Get available categories
-   * @returns {Promise<Array>} Array of unique categories
+   * Obter categorias disponíveis
+   * @returns {Promise<Array>} Array de categorias únicas
    */
   async getCategories() {
     try {
@@ -170,8 +170,8 @@ class ProductService {
   }
 
   /**
-   * Get available brands
-   * @returns {Promise<Array>} Array of unique brands
+   * Obter marcas disponíveis
+   * @returns {Promise<Array>} Array de marcas únicas
    */
   async getBrands() {
     try {
@@ -184,8 +184,8 @@ class ProductService {
   }
 
   /**
-   * Get product statistics
-   * @returns {Promise<Object>} Product statistics
+   * Obter estatísticas dos produtos
+   * @returns {Promise<Object>} Estatísticas dos produtos
    */
   async getProductStats() {
     try {

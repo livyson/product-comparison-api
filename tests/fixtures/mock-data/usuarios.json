@@ -1,0 +1,168 @@
+{
+  "usuarios": [
+    {
+      "id": "123",
+      "email": "joao.silva@empresa.com",
+      "nome": "João Silva",
+      "nome_de_usuario": "joao.silva",
+      "id_organizacao": "456",
+      "fila": "fila_teste",
+      "webhook_url2": "https://webhook.com",
+      "data_expiracao": "2025-12-31",
+      "matrizes": [
+        { "id": "1", "nome": "Matriz A" },
+        { "id": "2", "nome": "Matriz B" }
+      ],
+      "queue": {
+        "queueV3": "fila_v3",
+        "queueV2": "fila_v2"
+      }
+    },
+    {
+      "id": "456",
+      "email": "maria.santos@empresa.com",
+      "nome": "Maria Santos",
+      "nome_de_usuario": "maria.santos",
+      "id_organizacao": "456",
+      "fila": "fila_teste",
+      "webhook_url2": "https://webhook.com",
+      "data_expiracao": null,
+      "matrizes": [
+        { "id": "3", "nome": "Matriz C" }
+      ],
+      "queue": {
+        "queueV3": "fila_v3",
+        "queueV2": "fila_v2"
+      }
+    },
+    {
+      "id": "789",
+      "email": "pedro.oliveira@empresa.com",
+      "nome": "Pedro Oliveira",
+      "nome_de_usuario": "pedro.oliveira",
+      "id_organizacao": "789",
+      "fila": "fila_dedicada",
+      "webhook_url2": "https://webhook-dedicado.com",
+      "data_expiracao": "2024-12-31",
+      "matrizes": [],
+      "queue": {
+        "queueV3": "fila_v3_dedicada",
+        "queueV2": "fila_v2_dedicada"
+      }
+    }
+  ],
+  "usuariosV3": [
+    {
+      "data": {
+        "id": "v3_123",
+        "email": "joao.silva@empresa.com",
+        "name": "João Silva",
+        "companyId": "456",
+        "roles": [
+          { "value": "ADMIN" },
+          { "value": "USER" }
+        ],
+        "v2Id": "123"
+      }
+    },
+    {
+      "data": {
+        "id": "v3_456",
+        "email": "maria.santos@empresa.com",
+        "name": "Maria Santos",
+        "companyId": "456",
+        "roles": [
+          { "value": "USER" }
+        ],
+        "v2Id": "456"
+      }
+    }
+  ],
+  "matrizes": [
+    {
+      "id": "1",
+      "nome": "Matriz A",
+      "descricao": "Matriz de teste A"
+    },
+    {
+      "id": "2",
+      "nome": "Matriz B",
+      "descricao": "Matriz de teste B"
+    },
+    {
+      "id": "3",
+      "nome": "Matriz C",
+      "descricao": "Matriz de teste C"
+    }
+  ],
+  "timeouts": [
+    {
+      "tem_timeout": true,
+      "segundos_para_cancelar": 300,
+      "tipo": "dedicated"
+    },
+    {
+      "tem_timeout": false,
+      "segundos_para_cancelar": 0,
+      "tipo": "nenhum"
+    },
+    {
+      "tem_timeout": true,
+      "segundos_para_cancelar": 600,
+      "tipo": "shared"
+    }
+  ],
+  "fallbacks": [
+    {
+      "tipo": "webhook",
+      "url": "https://webhook.com",
+      "ativo": true
+    },
+    {
+      "tipo": "email",
+      "email": "admin@empresa.com",
+      "ativo": true
+    },
+    {
+      "tipo": "sms",
+      "telefone": "+5511999999999",
+      "ativo": false
+    }
+  ],
+  "comunicados": [
+    {
+      "id_job": 12345,
+      "nome_comunicado": "Boas-vindas",
+      "assunto": "Bem-vindo à nossa plataforma",
+      "data_envio": "2024-12-01 10:00:00",
+      "total_enviados": 1000,
+      "lista_envio": 1,
+      "nome_remetente": "Equipe de Suporte",
+      "email_remetente": "suporte@empresa.com"
+    },
+    {
+      "id_job": 12346,
+      "nome_comunicado": "Atualização de Sistema",
+      "assunto": "Nova funcionalidade disponível",
+      "data_envio": "2024-12-02 14:30:00",
+      "total_enviados": 500,
+      "lista_envio": 2,
+      "nome_remetente": "Equipe de Desenvolvimento",
+      "email_remetente": "dev@empresa.com"
+    }
+  ],
+  "empresas": [
+    {
+      "id": "456",
+      "nome": "Empresa Teste Ltda",
+      "domains": ["empresa.com", "empresa.com.br"],
+      "ativo": true
+    },
+    {
+      "id": "789",
+      "nome": "Empresa Dedicada Ltda",
+      "domains": ["dedicada.com"],
+      "ativo": true
+    }
+  ]
+}

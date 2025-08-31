@@ -4,20 +4,20 @@ const helmet = require('helmet');
 const morgan = require('morgan');
 const rateLimit = require('express-rate-limit');
 
-// Import routes
+// Importar rotas
 const productRoutes = require('./controllers/productController');
 
-// Import middleware
+// Importar middleware
 const errorHandler = require('./middleware/errorHandler');
 
-// Create Express app
+// Criar aplicação Express
 const app = express();
 
-// Environment configuration
+// Configuração do ambiente
 const PORT = process.env.PORT || 3000;
 const NODE_ENV = process.env.NODE_ENV || 'development';
 
-// Security middleware
+// Middleware de segurança
 app.use(helmet());
 
 // CORS configuration
